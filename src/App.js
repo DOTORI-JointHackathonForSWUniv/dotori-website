@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Switch, BrowserRouter } from "react-router-dom";
+import React, { lazy, Suspense } from "react";
+import Loading from "./loading";
+
+const Login = lazy(() => import("./components/login"));
+// const Loading = lazy(() => import("./components/loading"));
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <BrowserRouter>
+            <Suspense fallback={<Loading />}>
+                <Switch>
+                    <Route path="/login" component={Login} exact></Route>
+                    {/* <Route path={['/login', 'sign']} component={Login}></Route> */}
+                    <Route render={({ location }) => <div>이 페이지는 존재하지 않습니다:{location.pathname}</div>}></Route>
+                </Switch>
+            </Suspense>
+        </BrowserRouter>
+    );
 }
 
 export default App;
