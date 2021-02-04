@@ -1,1 +1,1 @@
-# react-chrome-extension
+# DOTORI - 쉬운 깃 & 깃허브
