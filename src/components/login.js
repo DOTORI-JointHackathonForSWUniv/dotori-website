@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 `;
 
 const LoginImg = styled.img`
-    width: 1117px;
+    width: 57%;
 `;
 
 const LoginSection = styled.div`
@@ -22,7 +22,7 @@ const LoginSection = styled.div`
     margin: auto 0;
 `;
 const LogoImg = styled.img`
-    width: 30%;
+    width: 40%;
 `;
 
 const LoginBox = styled.div`
@@ -30,7 +30,6 @@ const LoginBox = styled.div`
     flex-direction: column;
     align-items: center;
     width: 50%;
-
     margin-top: 5rem;
 `;
 const InputBox = styled.div`
@@ -44,12 +43,15 @@ const InputName = styled.div`
 const Input = styled.input`
     padding: 0;
     height: 53px;
-    width: 100%;
+    width: 94%;
+    padding-left: 5%;
     background-color: #ffffff;
     margin: 1rem 0;
     border: solid 1px #755e4c;
+    font-size: 18px;
 `;
 const LoginButton = styled.button`
+    border: none;
     border-radius: 5px;
     width: 100%;
     background-color: #755e4c;
@@ -57,6 +59,8 @@ const LoginButton = styled.button`
     height: 63px;
     margin-top: 0.5rem;
     padding: 0;
+    font-size: 20px;
+    font-weight: bold;
 `;
 const AuthBox = styled.div`
     display: flex;
