@@ -20,7 +20,14 @@ const Wrapper = styled.div`
 const Title = styled.img`
     width: 640px;
     height: 41px;
-    margin: 90px 0;
+    margin-top: 90px;
+`;
+const SubTitle = styled.div`
+    font-size: 17px;
+    font-weight: bold;
+    color: #332820;
+    margin-top: 13px;
+    margin-bottom: 71.5px;
 `;
 
 const ContentBox = styled.div`
@@ -30,7 +37,7 @@ const ContentBox = styled.div`
     border-top: solid 0.7px #d2d2d2;
     padding-top: 2rem;
     overflow-y: scroll;
-    height: 600px;
+    height: 550px;
     /* align-items: center; */
     /* justify-content: center; */
 `;
@@ -76,6 +83,7 @@ const CodeBox = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background: white;
 `;
 const CommitIcon = styled.img`
     width: 62px;
@@ -103,6 +111,7 @@ const Main = ({ history }) => {
         <Wrapper>
             <Header></Header>
             <Title src={main_title}></Title>
+            <SubTitle>다른 친구들 도토리 주머니도 구경해봐!</SubTitle>
             <ContentBox>
                 {feeds.map((feed) => {
                     return (

@@ -3,6 +3,10 @@ import land from "../assets/land.png";
 import user from "../assets/user.png";
 import mypage_title from "../assets/mypage_title.png";
 import dotori_commit from "../assets/dotori_commit.png";
+import lock from "../assets/lock.png";
+import unlock from "../assets/unlock.png";
+import download from "../assets/download.png";
+import dotori_gray from "../assets/dotori_gray.png";
 import styled from "styled-components";
 import Header from "./header";
 
@@ -70,23 +74,44 @@ const FeedBox = styled.div`
     align-items: center;
 `;
 const TitleBox = styled.div`
-    font-size: 16px;
-    padding: 1rem 0;
-    color: #6e5ae7;
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 1rem 0;
+    align-items: center;
+`;
+const Lock = styled.img`
+    width: 35px;
+    height: 33.8px;
+    padding: 0 1rem;
+`;
+const DownLoad = styled.img`
+    width: 34px;
+    height: 32.8px;
+`;
+const Day = styled.div`
+    font-size: 16px;
+    color: #6e5ae7;
+    flex: 1;
     text-align: right;
-    padding-right: 2rem;
+    padding-right: 4%;
 `;
 
 const CodeBox = styled.div`
     width: 390px;
     height: 148px;
     border-radius: 10px;
-    border: solid 2px #755e4c;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    border: ${(props) => {
+        if (props.is_public) {
+            return "solid 2px #755e4c";
+        } else {
+            return "solid 2px #d2d2d2";
+        }
+    }};
 `;
 const CommitIcon = styled.img`
     width: 62px;
@@ -95,17 +120,23 @@ const CommitIcon = styled.img`
 const CommitMsg = styled.div`
     font-size: 21px;
     font-weight: bold;
-    color: #755e4c;
+    color: ${(props) => {
+        if (props.is_public) {
+            return "#755e4c";
+        } else {
+            return "#d2d2d2";
+        }
+    }};
 `;
 
 const User = ({ history }) => {
     let userInfo = { name: "사용자", info1: "태원초등학교", info2: 2, info3: 3 };
     let feeds = [
-        { user: "다람쥐1", day: 1, commit: "commit msg1" },
-        { user: "다람쥐2", day: 1, commit: "commit msg2" },
-        { user: "다람쥐3", day: 1, commit: "commit msg3" },
-        { user: "다람쥐4", day: 1, commit: "commit msg4" },
-        { user: "다람쥐5", day: 1, commit: "commit msg5" },
+        { user: "다람쥐1", day: 1, commit: "commit msg1", is_public: true },
+        { user: "다람쥐2", day: 1, commit: "commit msg2", is_public: true },
+        { user: "다람쥐3", day: 1, commit: "commit msg3", is_public: false },
+        { user: "다람쥐4", day: 1, commit: "commit msg4", is_public: true },
+        { user: "다람쥐5", day: 1, commit: "commit msg5", is_public: true },
     ];
     const movePage = (page) => {
         history.push(`/${page}`);
@@ -126,10 +157,14 @@ const User = ({ history }) => {
                         {feeds.map((feed) => {
                             return (
                                 <FeedBox>
-                                    <TitleBox>{`${feed.day}일 전`}</TitleBox>
-                                    <CodeBox>
-                                        <CommitIcon src={dotori_commit}></CommitIcon>
-                                        <CommitMsg>{feed.commit}</CommitMsg>
+                                    <TitleBox>
+                                        <Lock src={feed.is_public ? unlock : lock}></Lock>
+                                        <DownLoad src={download}></DownLoad>
+                                        <Day>{`${feed.day}일 전`}</Day>
+                                    </TitleBox>
+                                    <CodeBox is_public={feed.is_public}>
+                                        <CommitIcon src={feed.is_public ? dotori_commit : dotori_gray}></CommitIcon>
+                                        <CommitMsg is_public={feed.is_public}>{feed.commit}</CommitMsg>
                                     </CodeBox>
                                 </FeedBox>
                             );
