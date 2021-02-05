@@ -161,6 +161,7 @@ const User = ({ history }) => {
                                         <Lock src={feed.is_public ? unlock : lock}></Lock>
                                         <DownLoad src={download}></DownLoad>
                                         <Day>{`${feed.day}일 전`}</Day>
+                                        
                                     </TitleBox>
                                     <CodeBox is_public={feed.is_public}>
                                         <CommitIcon src={feed.is_public ? dotori_commit : dotori_gray}></CommitIcon>

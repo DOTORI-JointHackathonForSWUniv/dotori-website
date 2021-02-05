@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import forest from "../assets/forest.png";
 import user from "../assets/user.png";
 import main_title from "../assets/main_title.png";
 import dotori_commit from "../assets/dotori_commit.png";
 import styled from "styled-components";
 import Header from "./header";
+import * as db from "../apis/firebase";
 
 const Wrapper = styled.div`
     max-width: 1920px;
@@ -107,24 +108,54 @@ const Main = ({ history }) => {
         history.push(`/${page}`);
     };
 
+    const [curAllData, setAllData] = useState([]);
+
+    const getAllPublicFilesPushed = async () => {
+        const newData = await db.getAllPublicFilesPushed();
+        setAllData(newData);
+        console.log("getAllPublicFilesPushed")
+        console.log(curAllData)
+      };
+    
+
+    useEffect(() => {
+        getAllPublicFilesPushed();
+    }, []);
+
+    const curr = new Date();
     return (
         <Wrapper>
             <Header></Header>
             <Title src={main_title}></Title>
             <SubTitle>다른 친구들 도토리 주머니도 구경해봐!</SubTitle>
+            {/* {curAllData.map((fileAndUser, index) => {
+            return (
+            <div key={index}>
+              file: {fileAndUser.file.toString()}, by -{" "}
+              {fileAndUser.creator.nickname}
+            </div>
+          );
+        })} */}
             <ContentBox>
-                {feeds.map((feed) => {
+                {curAllData.map((feed) => {
+
+                    const date = feed.file.created_at.toDate();
+                    const timediff = curr.getTime() - date.getTime();
+                    const day = Math.floor(timediff / (1000*3600*24))
+                    const time = Math.floor(timediff/(1000 * 60*60))
+
                     return (
                         <FeedBox>
                             <TitleBox>
                                 <UserIcon src={user}></UserIcon>
-                                <UserName>{feed.user}</UserName>
+                                <UserName>{feed.creator.nickname}</UserName>
                                 <TitleText>님 집에 있는 도토리 바구니</TitleText>
-                                <Day>{`${feed.day}일 전`}</Day>
+                                {/* <Day>{`${day}일 전`}</Day> */}
+                                <Day>{day===0 ? `${time}시간 전`: `${day}일 전`}</Day>
                             </TitleBox>
                             <CodeBox>
                                 <CommitIcon src={dotori_commit}></CommitIcon>
-                                <CommitMsg>{feed.commit}</CommitMsg>
+                                <CommitMsg>{/*feed.commit*/}</CommitMsg>
                             </CodeBox>
                         </FeedBox>
                     );
