@@ -1,40 +1,97 @@
 import React from "react";
-import db from "../config/firebase.js";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
+import * as db from "../apis/firebase";
 
 function FirebaseTest() {
-  const [curData, setData] = useState([]);
+  const [curAllData, setAllData] = useState([]);
+  const [curMyPublicData, setMyPublicData] = useState([]);
+  const [curMyPrivateData, setMyPrivateData] = useState([]);
 
-  const getData = async () => {
-    let newData = [];
-    const querySnapshot = await db.collection("test-collection").get();
-
-    querySnapshot.forEach((doc) => {
-      const value = doc.data().value ?? doc.data().dotori;
-      const id = doc.id;
-      newData.push({ value: value, id: id });
-    });
-
-    setData(curData.concat(newData));
+  const getAllPublicFilesPushed = async () => {
+    const newData = await db.getAllPublicFilesPushed();
+    setAllData(newData);
   };
 
-  // 최초 렌더링 이후에 실행하기 위해 useEffect 내부에서 함수 실행
-  useEffect(() => {
-    getData();
-  }, []);
+  const getMyPublicFilesPushed = async () => {
+    const newData = await db.getMyPublicFilesPushed();
+    setMyPublicData(newData);
+  };
 
-  return curData.length > 0 ? (
+  const getMyPrivateFilesPushed = async () => {
+    const newData = await db.getMyPrivateFilesPushed();
+    setMyPrivateData(newData);
+  };
+
+  const changeToPublic = async () => {
+    await db.changeToPublic("i3lMtwXdLzOrsBpJrqjv");
+  };
+
+  const changeToPrivate = async () => {
+    await db.changeToPrivate("i3lMtwXdLzOrsBpJrqjv");
+  };
+
+  return (
     <div>
-      {curData.map((data, index) => {
-        return (
-          <div key={index}>
-            id: {data.id}, value: {data.value}{" "}
-          </div>
-        );
-      })}
+      <div>
+        <button onClick={getAllPublicFilesPushed}>GET ALL FILE </button>
+        <button
+          onClick={() => {
+            setAllData([]);
+          }}
+        >
+          CLEAN ALL FILE
+        </button>
+        {curAllData.map((fileAndUser, index) => {
+          return (
+            <div key={index}>
+              file: {fileAndUser.file.toString()}, by -{" "}
+              {fileAndUser.creator.nickname}
+            </div>
+          );
+        })}
+      </div>
+      <div>
+        <button onClick={getMyPublicFilesPushed}>GET MY PUBLIC FILE</button>
+        <button
+          onClick={() => {
+            setMyPublicData([]);
+          }}
+        >
+          CLEAN MY PUBLIC FILE
+        </button>
+        {curMyPublicData.map((file, index) => {
+          return (
+            <div key={index}>
+              code: {file.code.toString()}, is_public:{" "}
+              {file.is_public.toString()}
+            </div>
+          );
+        })}
+      </div>
+
+      <div>
+        <button onClick={getMyPrivateFilesPushed}>GET MY PRIVATE FILE</button>
+        <button
+          onClick={() => {
+            setMyPrivateData([]);
+          }}
+        >
+          CLEAN MY PRIVATE FILE
+        </button>
+        {curMyPrivateData.map((file, index) => {
+          return (
+            <div key={index}>
+              code: {file.code.toString()}, is_public:{" "}
+              {file.is_public.toString()}
+            </div>
+          );
+        })}
+      </div>
+      <div>
+        <button onClick={changeToPublic}>CHANGE TO PUBLIC</button>
+        <button onClick={changeToPrivate}>CHANGE TO PRIVATE</button>
+      </div>
     </div>
-  ) : (
-    <div />
   );
 }
 
