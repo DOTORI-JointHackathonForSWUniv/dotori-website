@@ -10,6 +10,7 @@ import dotori_gray from "../assets/dotori_gray.png";
 import styled from "styled-components";
 import Header from "./header";
 import * as db from "../apis/firebase";
+import Loading from "./Loading";
 
 const Wrapper = styled.div`
   max-width: 1920px;
@@ -161,16 +162,11 @@ const User = ({ history }) => {
 
   const getMyAllFilesPushed = async () => {
     const newData = await db.getMyAllFilesPushed();
-    console.log("@@@@@ get new data", newData);
-
     setAllData(newData);
-    console.log("@@@@ getMyAllFilesPushed");
-    console.log(curAllData);
   };
 
   useEffect(() => {
     getMyAllFilesPushed();
-    console.log("useEffect");
   }, []);
 
   const curr = new Date();
@@ -189,14 +185,14 @@ const User = ({ history }) => {
           <SubTitle>그동안 내가 열심히 모은 도토리 바구니!</SubTitle>
           <ContentBox>
             {curAllData.length > 0 ? (
-              curAllData.map((feed) => {
+              curAllData.map((feed, index) => {
                 const date = feed.file.created_at.toDate();
                 const timediff = curr.getTime() - date.getTime();
                 const day = Math.floor(timediff / (1000 * 3600 * 24));
                 const time = Math.floor(timediff / (1000 * 60 * 60));
 
                 return (
-                  <FeedBox>
+                  <FeedBox key={index}>
                     <TitleBox>
                       <Lock src={feed.file.is_public ? unlock : lock}></Lock>
                       <DownLoad src={download}></DownLoad>
@@ -214,7 +210,7 @@ const User = ({ history }) => {
                 );
               })
             ) : (
-              <div></div>
+              <Loading />
             )}
           </ContentBox>
         </ContentSection>
