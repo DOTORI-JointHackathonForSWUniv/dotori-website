@@ -82,6 +82,7 @@ const FeedBox = styled.div`
   width: 390px;
   margin: 1.3rem;
   align-items: center;
+  background-color: #fff;
 `;
 const TitleBox = styled.div`
   width: 100%;
