@@ -8,7 +8,7 @@ const StatusEnum = {
 };
 Object.freeze(StatusEnum);
 
-const userId = "MkiBUPyIhdgOefgKg82a";
+const userId = "USERID";
 
 export const getAllPublicFilesPushed = async () => {
   const querySnapshot = await db
