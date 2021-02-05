@@ -8,7 +8,7 @@ const StatusEnum = {
 };
 Object.freeze(StatusEnum);
 
-const userId = "jSUP3XUfwgLHv6DmOeiP";
+const userId = "MkiBUPyIhdgOefgKg82a";
 
 export const getAllPublicFilesPushed = async () => {
   const querySnapshot = await db
@@ -34,6 +34,23 @@ const getCreatorById = async (id) => {
   const querySnapshot = await db.collection("User").doc(id).get();
   const user = (await querySnapshot.ref.get()).data();
   return user;
+};
+
+export const getMyAllFilesPushed = async () => {
+  let files = [];
+
+  const querySnapshot = await db
+    .collection("File")
+    .where("creator", "==", userId)
+    .where("status", "==", StatusEnum.pushed)
+    .get();
+
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+    files.push(data);
+  });
+
+  return files;
 };
 
 export const getMyPublicFilesPushed = async () => {

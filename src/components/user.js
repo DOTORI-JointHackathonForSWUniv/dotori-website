@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import land from "../assets/land.png";
 import user from "../assets/user.png";
 import mypage_title from "../assets/mypage_title.png";
@@ -9,6 +9,8 @@ import download from "../assets/download.png";
 import dotori_gray from "../assets/dotori_gray.png";
 import styled from "styled-components";
 import Header from "./header";
+import * as db from "../apis/firebase";
+
 
 const Wrapper = styled.div`
     max-width: 1920px;
@@ -130,7 +132,7 @@ const CommitMsg = styled.div`
 `;
 
 const User = ({ history }) => {
-    let userInfo = { name: "사용자", info1: "태원초등학교", info2: 2, info3: 3 };
+    let userInfo = { name: "날다람쥐", info1: "토리초등학교", info2: 2, info3: 3 };
     let feeds = [
         { user: "다람쥐1", day: 1, commit: "commit msg1", is_public: true },
         { user: "다람쥐2", day: 1, commit: "commit msg2", is_public: true },
@@ -141,6 +143,23 @@ const User = ({ history }) => {
     const movePage = (page) => {
         history.push(`/${page}`);
     };
+
+    const [curAllData, setAllData] = useState([]);
+
+    const getMyAllFilesPushed = async () => {
+        const newData = await db.getMyAllFilesPushed();
+        setAllData(newData);
+        console.log("getMyAllFilesPushed");
+        console.log(curAllData);
+      };
+    
+
+    useEffect(() => {
+        getMyAllFilesPushed();
+        console.log("useEffect")
+    }, []);
+
+    const curr = new Date();
 
     return (
         <Wrapper>
@@ -154,22 +173,34 @@ const User = ({ history }) => {
                 <ContentSection>
                     <Title src={mypage_title}></Title>
                     <ContentBox>
-                        {feeds.map((feed) => {
-                            return (
-                                <FeedBox>
-                                    <TitleBox>
-                                        <Lock src={feed.is_public ? unlock : lock}></Lock>
-                                        <DownLoad src={download}></DownLoad>
-                                        <Day>{`${feed.day}일 전`}</Day>
-                                        
-                                    </TitleBox>
-                                    <CodeBox is_public={feed.is_public}>
-                                        <CommitIcon src={feed.is_public ? dotori_commit : dotori_gray}></CommitIcon>
-                                        <CommitMsg is_public={feed.is_public}>{feed.commit}</CommitMsg>
-                                    </CodeBox>
-                                </FeedBox>
-                            );
-                        })}
+                        {curAllData.length >0 ? (
+                            curAllData.map((feed) => {
+
+                                const date = feed.file.created_at.toDate();
+                                const timediff = curr.getTime() - date.getTime();
+                                const day = Math.floor(timediff / (1000*3600*24))
+                                const time = Math.floor(timediff/(1000 * 60*60))
+    
+                                return (
+                                    <FeedBox>
+                                        <TitleBox>
+                                            <Lock src={feed.file.is_public ? unlock : lock}></Lock>
+                                            <DownLoad src={download}></DownLoad>
+                                            <Day>{day===0 ? `${time}시간 전`: `${day}일 전`}</Day>
+                                            
+                                        </TitleBox>
+                                        <CodeBox is_public={feed.file.is_public}>
+                                            <CommitIcon src={feed.file.is_public ? dotori_commit : dotori_gray}></CommitIcon>
+                                            <CommitMsg is_public={feed.file.is_public}>{/*feed.commit*/}</CommitMsg>
+                                        </CodeBox>
+                                    </FeedBox>
+                                );
+                            }))
+                        :
+                        (
+                            <div></div>
+                        )
+                    }
                     </ContentBox>
                 </ContentSection>
             </ContentWrapper>

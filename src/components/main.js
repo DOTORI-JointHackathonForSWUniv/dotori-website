@@ -113,8 +113,6 @@ const Main = ({ history }) => {
     const getAllPublicFilesPushed = async () => {
         const newData = await db.getAllPublicFilesPushed();
         setAllData(newData);
-        console.log("getAllPublicFilesPushed")
-        console.log(curAllData)
       };
     
 
@@ -150,7 +148,6 @@ const Main = ({ history }) => {
                                 <UserIcon src={user}></UserIcon>
                                 <UserName>{feed.creator.nickname}</UserName>
                                 <TitleText>님 집에 있는 도토리 바구니</TitleText>
-                                {/* <Day>{`${day}일 전`}</Day> */}
                                 <Day>{day===0 ? `${time}시간 전`: `${day}일 전`}</Day>
                             </TitleBox>
                             <CodeBox>
