@@ -32,7 +32,7 @@ const ProfileBox = styled.div`
 const UserIcon = styled.img`
     width: 271px;
     height: 262px;
-    padding-top: 25%;
+    padding-top: 27%;
 `;
 const UserName = styled.div`
     font-size: 30px;
@@ -52,8 +52,16 @@ const ContentSection = styled.div`
 const Title = styled.img`
     width: 400px;
     height: 41px;
-    padding: 3rem 0;
+    padding-top: 4rem;
     margin: 0 auto;
+`;
+const SubTitle = styled.div`
+    font-size: 17px;
+    font-weight: bold;
+    color: #332820;
+    margin: 0 auto;
+    margin-top: 17px;
+    margin-bottom: 60px;
 `;
 const ContentBox = styled.div`
     border-top: solid 0.7px #d2d2d2;
@@ -62,7 +70,7 @@ const ContentBox = styled.div`
     max-height: 500px;
     display: flex;
     flex-wrap: wrap;
-    padding-top: 2rem;
+    padding-top: 3rem;
     overflow-y: scroll;
 `;
 
@@ -81,13 +89,13 @@ const TitleBox = styled.div`
     align-items: center;
 `;
 const Lock = styled.img`
-    width: 35px;
-    height: 33.8px;
+    width: 33px;
+    height: 32px;
     padding: 0 1rem;
 `;
 const DownLoad = styled.img`
-    width: 34px;
-    height: 32.8px;
+    width: 31px;
+    height: 31px;
 `;
 const Day = styled.div`
     font-size: 16px;
@@ -114,11 +122,12 @@ const CodeBox = styled.div`
     }};
 `;
 const CommitIcon = styled.img`
-    width: 62px;
-    height: 62px;
+    width: 55px;
+    height: 53.1px;
 `;
 const CommitMsg = styled.div`
     font-size: 21px;
+    margin-top: 7px;
     font-weight: bold;
     color: ${(props) => {
         if (props.is_public) {
@@ -153,6 +162,7 @@ const User = ({ history }) => {
                 </ProfileBox>
                 <ContentSection>
                     <Title src={mypage_title}></Title>
+                    <SubTitle>그동안 내가 열심히 모은 도토리 바구니!</SubTitle>
                     <ContentBox>
                         {feeds.map((feed) => {
                             return (

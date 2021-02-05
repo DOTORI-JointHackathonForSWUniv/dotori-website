@@ -54,11 +54,13 @@ const TitleBox = styled.div`
     flex-direction: row;
     align-items: center;
     padding: 1rem 0;
+    width: 100%;
 `;
 
 const UserIcon = styled.img`
-    width: 46px;
-    height: 44px;
+    width: 44px;
+    height: 42px;
+    padding-left: 12px;
 `;
 const UserName = styled.div`
     font-weight: 800;
@@ -71,7 +73,9 @@ const TitleText = styled.div`
 `;
 const Day = styled.div`
     color: #6e5ae7;
-    padding-left: 72px;
+    flex: 1;
+    text-align: right;
+    padding-right: 10px;
 `;
 
 const CodeBox = styled.div`
@@ -86,13 +90,14 @@ const CodeBox = styled.div`
     background: white;
 `;
 const CommitIcon = styled.img`
-    width: 62px;
-    height: 62px;
+    width: 55px;
+    height: 53.1px;
 `;
 const CommitMsg = styled.div`
     font-size: 21px;
     font-weight: bold;
     color: #755e4c;
+    margin-top: 7px;
 `;
 
 const Main = ({ history }) => {
@@ -119,7 +124,7 @@ const Main = ({ history }) => {
                             <TitleBox>
                                 <UserIcon src={user}></UserIcon>
                                 <UserName>{feed.user}</UserName>
-                                <TitleText>님 집에 있는 도토리 바구니</TitleText>
+                                <TitleText>님 집에 있는 도토리 주머니</TitleText>
                                 <Day>{`${feed.day}일 전`}</Day>
                             </TitleBox>
                             <CodeBox>

@@ -42,7 +42,7 @@ const Header = ({ history }) => {
 
     return (
         <Wrapper>
-            <LogoImg src={logo}></LogoImg>
+            <LogoImg src={logo} onClick={() => movePage("")}></LogoImg>
             <UserBox>
                 <User src={user} onClick={() => movePage("user")}></User>
                 <Logout src={logout}></Logout>
