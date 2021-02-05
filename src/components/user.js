@@ -195,7 +195,13 @@ const User = ({ history }) => {
                   <FeedBox key={index}>
                     <TitleBox>
                       <Lock src={feed.file.is_public ? unlock : lock}></Lock>
-                      <DownLoad src={download}></DownLoad>
+                      <a
+                        href="https://srv-store2.gofile.io/download/849tKu/%E1%84%82%E1%85%A1%E1%86%AF%E1%84%83%E1%85%A1%E1%84%85%E1%85%A1%E1%86%B7%E1%84%8C%E1%85%B1_entry.ent"
+                        download
+                      >
+                        {/* <a href="src/assets/download.png" download> */}
+                        <DownLoad src={download}></DownLoad>
+                      </a>
                       <Day>{day === 0 ? `${time}시간 전` : `${day}일 전`}</Day>
                     </TitleBox>
                     <CodeBox is_public={feed.file.is_public}>
