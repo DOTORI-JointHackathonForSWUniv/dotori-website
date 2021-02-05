@@ -13,7 +13,9 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     background-image: url(${forest});
-    background-size: cover;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center bottom;
 `;
 const Title = styled.img`
     width: 640px;
@@ -28,6 +30,7 @@ const ContentBox = styled.div`
     border-top: solid 0.7px #d2d2d2;
     padding-top: 2rem;
     overflow-y: scroll;
+    height: 600px;
     /* align-items: center; */
     /* justify-content: center; */
 `;

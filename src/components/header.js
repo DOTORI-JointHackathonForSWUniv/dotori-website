@@ -3,6 +3,7 @@ import logo from "../assets/logo.png";
 import logout from "../assets/logout.png";
 import user from "../assets/user.png";
 import styled from "styled-components";
+import { withRouter } from "react-router-dom";
 
 const Wrapper = styled.div`
     height: 144.5px;
@@ -43,11 +44,11 @@ const Header = ({ history }) => {
         <Wrapper>
             <LogoImg src={logo}></LogoImg>
             <UserBox>
-                <User src={user}></User>
+                <User src={user} onClick={() => movePage("user")}></User>
                 <Logout src={logout}></Logout>
             </UserBox>
         </Wrapper>
     );
 };
 
-export default Header;
+export default withRouter(Header);
