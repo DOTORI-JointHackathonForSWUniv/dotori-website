@@ -25,7 +25,7 @@ const Title = styled.img`
   margin-top: 90px;
 `;
 const SubTitle = styled.div`
-  font-size: 17px;
+  font-size: 18px;
   font-weight: bold;
   color: #332820;
   margin-top: 13px;
@@ -68,10 +68,12 @@ const UserName = styled.div`
   font-weight: 800;
   color: #755e4c;
   padding-left: 12px;
+  font-size: 18px;
 `;
 const TitleText = styled.div`
   color: #755e4c;
   padding-left: 5px;
+  font-size: 18px;
 `;
 const Day = styled.div`
   color: #6e5ae7;

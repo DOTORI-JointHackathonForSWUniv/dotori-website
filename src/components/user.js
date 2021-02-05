@@ -43,7 +43,7 @@ const UserName = styled.div`
   padding: 1rem 0;
 `;
 const UserInfo = styled.div`
-  font-size: 17px;
+  font-size: 20px;
   color: #755e4c;
 `;
 const ContentSection = styled.div`
@@ -58,7 +58,7 @@ const Title = styled.img`
   margin: 0 auto;
 `;
 const SubTitle = styled.div`
-  font-size: 17px;
+  font-size: 18px;
   font-weight: bold;
   color: #332820;
   margin: 0 auto;
@@ -82,7 +82,6 @@ const FeedBox = styled.div`
   width: 390px;
   margin: 1.3rem;
   align-items: center;
-  background-color: #fff;
 `;
 const TitleBox = styled.div`
   width: 100%;
@@ -92,13 +91,13 @@ const TitleBox = styled.div`
   align-items: center;
 `;
 const Lock = styled.img`
-  width: 33px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   padding: 0 1rem;
 `;
 const DownLoad = styled.img`
-  width: 31px;
-  height: 31px;
+  width: 33px;
+  height: 33px;
 `;
 const Day = styled.div`
   font-size: 16px;
@@ -116,6 +115,7 @@ const CodeBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: #fff;
   border: ${(props) => {
     if (props.is_public) {
       return "solid 2px #755e4c";

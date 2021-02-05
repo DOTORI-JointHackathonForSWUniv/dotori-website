@@ -15,6 +15,7 @@ export const getAllPublicFilesPushed = async () => {
     .collection("File")
     .where("status", "==", StatusEnum.pushed)
     .where("is_public", "==", true)
+    .orderBy("created_at", "desc")
     .get();
 
   const fileAndUsers = querySnapshot.docs.map(async (doc) => {
@@ -43,6 +44,7 @@ export const getMyAllFilesPushed = async () => {
     .collection("File")
     .where("creator", "==", userId)
     .where("status", "==", StatusEnum.pushed)
+    .orderBy("created_at", "desc")
     .get();
 
   const fileAndCommitName = querySnapshot.docs.map(async (doc) => {
