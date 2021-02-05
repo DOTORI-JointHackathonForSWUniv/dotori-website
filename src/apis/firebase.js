@@ -37,20 +37,24 @@ const getCreatorById = async (id) => {
 };
 
 export const getMyAllFilesPushed = async () => {
-  let files = [];
-
   const querySnapshot = await db
     .collection("File")
     .where("creator", "==", userId)
     .where("status", "==", StatusEnum.pushed)
     .get();
 
-  querySnapshot.forEach((doc) => {
-    const data = doc.data();
-    files.push(data);
+  const fileAndCommitName = querySnapshot.docs.map(async (doc) => {
+    let data = doc.data();
+    const fileId = doc.id;
+    data.id = fileId;
+    const message = await getCommitMessageByFileId(fileId);
+    const fileAndCommitMsg = { file: data, commitMsg: message };
+    return fileAndCommitMsg;
   });
 
-  return files;
+  const result = Promise.all(fileAndCommitName);
+
+  return result;
 };
 
 export const getMyPublicFilesPushed = async () => {
@@ -101,4 +105,21 @@ export const changeToPrivate = async (fileId) => {
   const fileRef = querySnapshot.ref;
 
   await fileRef.update({ is_public: false });
+};
+
+const getCommitMessageByFileId = async (fileId) => {
+  const querySnapshot = await db
+    .collection("Commit")
+    .where("files", "array-contains", fileId)
+    .limit(1)
+    .get();
+
+  let message = "";
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+    const name = data.name;
+    message = name;
+  });
+
+  return message;
 };
