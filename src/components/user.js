@@ -10,6 +10,7 @@ import dotori_gray from "../assets/dotori_gray.png";
 import styled from "styled-components";
 import Header from "./header";
 import * as db from "../apis/firebase";
+import Loading from "./Loading";
 
 const Wrapper = styled.div`
   max-width: 1920px;
@@ -161,16 +162,11 @@ const User = ({ history }) => {
 
   const getMyAllFilesPushed = async () => {
     const newData = await db.getMyAllFilesPushed();
-    console.log("@@@@@ get new data", newData);
-
     setAllData(newData);
-    console.log("@@@@ getMyAllFilesPushed");
-    console.log(curAllData);
   };
 
   useEffect(() => {
     getMyAllFilesPushed();
-    console.log("useEffect");
   }, []);
 
   const curr = new Date();
@@ -189,17 +185,23 @@ const User = ({ history }) => {
           <SubTitle>그동안 내가 열심히 모은 도토리 바구니!</SubTitle>
           <ContentBox>
             {curAllData.length > 0 ? (
-              curAllData.map((feed) => {
+              curAllData.map((feed, index) => {
                 const date = feed.file.created_at.toDate();
                 const timediff = curr.getTime() - date.getTime();
                 const day = Math.floor(timediff / (1000 * 3600 * 24));
                 const time = Math.floor(timediff / (1000 * 60 * 60));
 
                 return (
-                  <FeedBox>
+                  <FeedBox key={index}>
                     <TitleBox>
                       <Lock src={feed.file.is_public ? unlock : lock}></Lock>
-                      <DownLoad src={download}></DownLoad>
+                      <a
+                        href="https://srv-store2.gofile.io/download/849tKu/%E1%84%82%E1%85%A1%E1%86%AF%E1%84%83%E1%85%A1%E1%84%85%E1%85%A1%E1%86%B7%E1%84%8C%E1%85%B1_entry.ent"
+                        download
+                      >
+                        {/* <a href="src/assets/download.png" download> */}
+                        <DownLoad src={download}></DownLoad>
+                      </a>
                       <Day>{day === 0 ? `${time}시간 전` : `${day}일 전`}</Day>
                     </TitleBox>
                     <CodeBox is_public={feed.file.is_public}>
@@ -214,7 +216,7 @@ const User = ({ history }) => {
                 );
               })
             ) : (
-              <div></div>
+              <Loading />
             )}
           </ContentBox>
         </ContentSection>

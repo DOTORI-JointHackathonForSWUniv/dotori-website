@@ -6,6 +6,7 @@ import dotori_commit from "../assets/dotori_commit.png";
 import styled from "styled-components";
 import Header from "./header";
 import * as db from "../apis/firebase";
+import Loading from "./Loading";
 
 const Wrapper = styled.div`
   max-width: 1920px;
@@ -130,36 +131,32 @@ const Main = ({ history }) => {
       <Header></Header>
       <Title src={main_title}></Title>
       <SubTitle>다른 친구들 도토리 주머니도 구경해봐!</SubTitle>
-      {/* {curAllData.map((fileAndUser, index) => {
-            return (
-            <div key={index}>
-              file: {fileAndUser.file.toString()}, by -{" "}
-              {fileAndUser.creator.nickname}
-            </div>
-          );
-        })} */}
       <ContentBox>
-        {curAllData.map((feed) => {
-          const date = feed.file.created_at.toDate();
-          const timediff = curr.getTime() - date.getTime();
-          const day = Math.floor(timediff / (1000 * 3600 * 24));
-          const time = Math.floor(timediff / (1000 * 60 * 60));
+        {curAllData.length > 0 ? (
+          curAllData.map((feed, index) => {
+            const date = feed.file.created_at.toDate();
+            const timediff = curr.getTime() - date.getTime();
+            const day = Math.floor(timediff / (1000 * 3600 * 24));
+            const time = Math.floor(timediff / (1000 * 60 * 60));
 
-          return (
-            <FeedBox>
-              <TitleBox>
-                <UserIcon src={user}></UserIcon>
-                <UserName>{feed.creator.nickname}</UserName>
-                <TitleText>님 집에 있는 도토리 바구니</TitleText>
-                <Day>{day === 0 ? `${time}시간 전` : `${day}일 전`}</Day>
-              </TitleBox>
-              <CodeBox>
-                <CommitIcon src={dotori_commit}></CommitIcon>
-                <CommitMsg>{/*feed.commit*/}</CommitMsg>
-              </CodeBox>
-            </FeedBox>
-          );
-        })}
+            return (
+              <FeedBox key={index}>
+                <TitleBox>
+                  <UserIcon src={user}></UserIcon>
+                  <UserName>{feed.creator.nickname}</UserName>
+                  <TitleText>님 집에 있는 도토리 바구니</TitleText>
+                  <Day>{day === 0 ? `${time}시간 전` : `${day}일 전`}</Day>
+                </TitleBox>
+                <CodeBox>
+                  <CommitIcon src={dotori_commit}></CommitIcon>
+                  <CommitMsg>{feed.commitMsg}</CommitMsg>
+                </CodeBox>
+              </FeedBox>
+            );
+          })
+        ) : (
+          <Loading />
+        )}
       </ContentBox>
     </Wrapper>
   );

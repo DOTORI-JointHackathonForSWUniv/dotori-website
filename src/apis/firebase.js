@@ -19,9 +19,11 @@ export const getAllPublicFilesPushed = async () => {
 
   const fileAndUsers = querySnapshot.docs.map(async (doc) => {
     let data = doc.data();
-    data.id = doc.id;
+    const fileId = doc.id;
+    data.id = fileId;
     const creator = await getCreatorById(data.creator);
-    const fileAndUser = { file: data, creator: creator };
+    const message = await getCommitMessageByFileId(fileId);
+    const fileAndUser = { file: data, creator: creator, commitMsg: message };
     return fileAndUser;
   });
 
