@@ -84,8 +84,8 @@ const Pwd = styled.div`
 `;
 
 const Login = ({ history }) => {
-    const moveMain = () => {
-        history.push("/");
+    const movePage = (page) => {
+        history.push(`/${page}`);
     };
 
     return (
@@ -102,7 +102,7 @@ const Login = ({ history }) => {
                         <InputName>비밀번호</InputName>
                         <Input></Input>
                     </InputBox>
-                    <LoginButton>로그인하기</LoginButton>
+                    <LoginButton onClick={() => movePage("")}>로그인하기</LoginButton>
                     <AuthBox>
                         <Sign>회원가입</Sign>
                         <Pwd>비밀번호 찾기</Pwd>
