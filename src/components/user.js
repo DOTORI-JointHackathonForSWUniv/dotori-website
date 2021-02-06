@@ -49,7 +49,7 @@ const UserInfo = styled.div`
 const ContentSection = styled.div`
   display: flex;
   flex-direction: column;
-  width: 45%;
+  width: 65vw;
 `;
 const Title = styled.img`
   width: 400px;

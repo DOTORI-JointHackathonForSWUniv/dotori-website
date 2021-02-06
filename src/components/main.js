@@ -46,7 +46,7 @@ const ContentBox = styled.div`
 const FeedBox = styled.div`
   display: flex;
   flex-direction: column;
-  width: 520px;
+  width: 510px;
   margin: 1.5rem;
   align-items: center;
 `;
@@ -124,7 +124,7 @@ const Main = ({ history }) => {
   };
 
   useEffect(() => {
-    // getAllPublicFilesPushed();
+    getAllPublicFilesPushed();
   }, []);
 
   const curr = new Date();
