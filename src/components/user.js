@@ -49,7 +49,7 @@ const UserInfo = styled.div`
 const ContentSection = styled.div`
   display: flex;
   flex-direction: column;
-  width: 65vw;
+  width: 1400px;
 `;
 const Title = styled.img`
   width: 400px;
@@ -183,7 +183,7 @@ const User = ({ history }) => {
         </ProfileBox>
         <ContentSection>
           <Title src={mypage_title}></Title>
-          <SubTitle>그동안 내가 열심히 모은 도토리 바구니!</SubTitle>
+          <SubTitle>그동안 내가 열심히 모은 도토리 바구니</SubTitle>
           <ContentBox>
             {curAllData.length > 0 ? (
               curAllData.map((feed, index) => {
