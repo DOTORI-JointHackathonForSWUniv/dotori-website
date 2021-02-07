@@ -45,9 +45,10 @@ SW가치 확산을 위해 시작한 SW교육 봉사단 활동 경험을 하며 �
 
 ## 팀별 역할 분담
 - 손영인 : firebase 연동 및 git 명령어 관련 api 개발, 스키마 설계
-- 민지호 : dotori 웹 페이지 UI와 dotori 크롬 익스텐션 개발
-- 한지은 : git 명령어 사용과 db 사용을 위한 서버와의 통신 api 관리 
-- 원다연 : UI/UX 디자인
+- 최선욱 : Entry python 소스코드 export 코드 구현
+- 한지은 : dotori 서비스와 git 명령어 api 연동
+- 민지호 : chrome extension 및 web client 프론트 개발
+- 원다연 : UI/UX 
 
 
 ## 최종 목표
